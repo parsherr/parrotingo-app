@@ -1,12 +1,15 @@
 "use client"
 
+import { useEffect } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { BookOpen, Clock, Map, Play, Sparkles, TrendingUp } from "lucide-react"
+import { BookOpen, Clock, Loader2, Map, Play, Sparkles, TrendingUp } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { useAuth } from "@/lib/auth-context"
 
 const blogPreviews = [
     {
@@ -40,6 +43,32 @@ const blogPreviews = [
 ]
 
 export default function HomePage() {
+    const { user, isLoading, isAuthenticated } = useAuth()
+    const router = useRouter()
+
+    // Redirect to auth if not authenticated
+    useEffect(() => {
+        if (!isLoading && !isAuthenticated) {
+            router.push("/auth")
+        }
+    }, [isLoading, isAuthenticated, router])
+
+    if (isLoading || !user) {
+        return (
+            <div className="flex min-h-[60vh] items-center justify-center">
+                <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+            </div>
+        )
+    }
+
+    const displayName = user.name || user.email.split("@")[0]
+    const initials = displayName
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2)
+
     return (
         <div className="space-y-0">
             {/* Welcome Section — no border, wide, breathable */}
@@ -68,7 +97,7 @@ export default function HomePage() {
                         <div className="space-y-8 text-center">
                             <div className="space-y-2">
                                 <h1 className="text-5xl font-bold tracking-tight md:text-6xl">
-                                    Welcome, <span className="text-emerald-500">John</span>!
+                                    Welcome, <span className="text-blue-500">{displayName.split(" ")[0]}</span>!
                                 </h1>
                                 <p className="text-xl text-muted-foreground">
                                     How is your day?
@@ -77,7 +106,7 @@ export default function HomePage() {
 
                             <div className="flex flex-col gap-3.5 w-64 mx-auto">
                                 <Link href="/path" className="w-full">
-                                    <Button size="lg" className="w-full rounded-full bg-emerald-500 hover:bg-emerald-600 text-white gap-3 text-lg h-14 shadow-sm">
+                                    <Button size="lg" className="w-full rounded-full bg-blue-500 hover:bg-blue-600 text-white gap-3 text-lg h-14 shadow-sm">
                                         <Play className="h-5 w-5 fill-white" />
                                         Resume
                                     </Button>
@@ -110,35 +139,35 @@ export default function HomePage() {
                             <div className="space-y-4">
                                 <div className="flex items-center gap-4">
                                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10">
-                                        <Sparkles className="h-5 w-5 text-emerald-400" />
+                                        <Sparkles className="h-5 w-5 text-blue-400" />
                                     </div>
                                     <p className="text-base text-slate-200">
-                                        <span className="font-bold text-white text-lg">142</span>{" "}
+                                        <span className="font-bold text-white text-lg">{user.questionsCompleted}</span>{" "}
                                         soru çözüldü
                                     </p>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10">
-                                        <BookOpen className="h-5 w-5 text-emerald-400" />
+                                        <BookOpen className="h-5 w-5 text-blue-400" />
                                     </div>
                                     <p className="text-base text-slate-200">
-                                        <span className="font-bold text-white text-lg">312</span>{" "}
+                                        <span className="font-bold text-white text-lg">{user.wordsLearned}</span>{" "}
                                         kelime öğrenildi
                                     </p>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10">
-                                        <TrendingUp className="h-5 w-5 text-emerald-400" />
+                                        <TrendingUp className="h-5 w-5 text-blue-400" />
                                     </div>
                                     <p className="text-base text-slate-200">
-                                        <span className="font-bold text-white text-lg">7</span>{" "}
+                                        <span className="font-bold text-white text-lg">{user.streakDays}</span>{" "}
                                         gün girildi
                                     </p>
                                 </div>
                             </div>
 
                             <Link href="/wordbank">
-                                <Button className="rounded-full bg-emerald-500 hover:bg-emerald-600 text-white px-6 gap-2 h-11 mt-1">
+                                <Button className="rounded-full bg-blue-500 hover:bg-blue-600 text-white px-6 gap-2 h-11 mt-1">
                                     <BookOpen className="h-4 w-4" />
                                     Manage Wordbank
                                 </Button>
@@ -176,8 +205,8 @@ export default function HomePage() {
                             className="h-full"
                         >
                             <Card className="flex flex-col h-full overflow-hidden rounded-3xl border hover:border-primary/50 transition-all duration-300">
-                                <div className="aspect-[16/10] shrink-0 overflow-hidden bg-gradient-to-br from-emerald-100 to-teal-200 dark:from-emerald-950 dark:to-teal-900 p-4 flex items-end">
-                                    <Badge className="rounded-xl bg-emerald-500 text-white">{post.category}</Badge>
+                                <div className="aspect-[16/10] shrink-0 overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 p-4 flex items-end">
+                                    <Badge className="rounded-xl bg-blue-500 text-white">{post.category}</Badge>
                                 </div>
                                 <CardContent className="p-4 flex flex-col flex-1">
                                     <h3 className="font-semibold line-clamp-1">{post.title}</h3>

@@ -1,0 +1,21 @@
+import bcrypt from 'bcryptjs';
+
+const SALT_ROUNDS = 12;
+
+/**
+ * Hash a plain-text password with bcrypt.
+ * Uses 12 rounds for a good balance of security and speed.
+ */
+export async function hashPassword(password: string): Promise<string> {
+    return bcrypt.hash(password, SALT_ROUNDS);
+}
+
+/**
+ * Compare a plain-text password with a bcrypt hash.
+ */
+export async function comparePassword(
+    password: string,
+    hash: string
+): Promise<boolean> {
+    return bcrypt.compare(password, hash);
+}

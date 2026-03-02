@@ -1,0 +1,41 @@
+// Prisma schema for Parrotingo Auth System
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AuthProvider {
+  CREDENTIALS
+  GOOGLE
+}
+
+model User {
+  id            String       @id @default(uuid())
+  email         String       @unique
+  name          String?
+  passwordHash  String?      // null for OAuth-only users
+  avatarUrl     String?
+  provider      AuthProvider @default(CREDENTIALS)
+  providerId    String?      // external provider ID (e.g. Google sub)
+
+  // Stats (placeholder fields for dashboard)
+  questionsCompleted Int     @default(0)
+  wordsLearned       Int     @default(0)
+  streakDays         Int     @default(0)
+  totalLessons       Int     @default(0)
+  studyHours         Float   @default(0)
+  longestStreak      Int     @default(0)
+  xp                 Int     @default(0)
+  level              String  @default("A1")
+
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@index([email])
+  @@index([provider, providerId])
+}

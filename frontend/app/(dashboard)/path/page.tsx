@@ -18,7 +18,7 @@ export default function PathPage() {
         <div className="space-y-6">
             <div className="mx-auto max-w-md">
                 {/* Path header */}
-                <div className="mb-8 rounded-2xl bg-emerald-500 p-4 text-white">
+                <div className="mb-8 rounded-2xl bg-blue-500 p-4 text-white">
                     <Link href="/" className="mb-1 text-sm text-white/80 hover:text-white flex items-center gap-1">
                         ← BÖLÜM 1, KISIM 1
                     </Link>

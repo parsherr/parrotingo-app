@@ -17,8 +17,8 @@ export function BlogPostCard({ title, excerpt, category, readTime, date, author 
     return (
         <motion.div whileHover={{ scale: 1.005 }} className="group">
             <div className="flex gap-4 rounded-2xl border p-4 transition-colors hover:border-primary/40">
-                <div className="hidden sm:flex h-20 w-28 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-100 to-teal-200 dark:from-emerald-950 dark:to-teal-900">
-                    <Badge className="rounded-lg bg-emerald-500 text-white text-xs">{category}</Badge>
+                <div className="hidden sm:flex h-20 w-28 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900">
+                    <Badge className="rounded-lg bg-blue-500 text-white text-xs">{category}</Badge>
                 </div>
                 <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">

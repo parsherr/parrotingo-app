@@ -128,7 +128,7 @@ const apps = [
   },
   {
     name: "PhotoLab",
-    icon: <Camera className="text-teal-500" />,
+    icon: <Camera className="text-blue-500" />,
     description: "Advanced photo editing and organization",
     category: "Photography",
     recent: false,
@@ -146,7 +146,7 @@ const apps = [
   },
   {
     name: "WebCanvas",
-    icon: <Code className="text-emerald-500" />,
+    icon: <Code className="text-blue-500" />,
     description: "Web design and development",
     category: "Web",
     recent: false,
@@ -242,7 +242,7 @@ const recentFiles = [
     name: "Product Photography.phl",
     app: "PhotoLab",
     modified: "Last month",
-    icon: <Camera className="text-teal-500" />,
+    icon: <Camera className="text-blue-500" />,
     shared: false,
     size: "156 MB",
     collaborators: 0,
@@ -455,7 +455,7 @@ export function DesignaliCreative() {
         <div className="flex h-full flex-col border-r">
           <div className="flex items-center justify-between p-4">
             <div className="flex items-center gap-3">
-              <div className="flex aspect-square size-10 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white">
+              <div className="flex aspect-square size-10 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 text-white">
                 <span className="text-lg font-bold">P</span>
               </div>
               <div>
@@ -517,7 +517,7 @@ export function DesignaliCreative() {
         <div className="flex h-full flex-col">
           <div className="p-4">
             <div className="flex items-center gap-3">
-              <div className="flex aspect-square size-10 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white">
+              <div className="flex aspect-square size-10 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 text-white">
                 <span className="text-lg font-bold">P</span>
               </div>
               <div>
@@ -614,7 +614,7 @@ export function DesignaliCreative() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5 }}
-                      className="overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 p-8 text-white"
+                      className="overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-blue-500 to-sky-500 p-8 text-white"
                     >
                       <div className="flex flex-col gap-6 px-24 md:flex-row md:items-center md:justify-between">
                         <div className="space-y-5">
@@ -646,7 +646,7 @@ export function DesignaliCreative() {
                             </div>
                           </div>
                           <Button
-                            className="rounded-2xl bg-white text-teal-700 hover:bg-white/90 px-8 py-6 text-lg"
+                            className="rounded-2xl bg-white text-blue-700 hover:bg-white/90 px-8 py-6 text-lg"
                             onClick={() => setActiveTab("sozluk")}
                           >
                             <BookOpen className="mr-2 h-5 w-5" />
@@ -710,8 +710,8 @@ export function DesignaliCreative() {
                       ].map((post) => (
                         <motion.div key={post.title} whileHover={{ scale: 1.02, y: -5 }} whileTap={{ scale: 0.98 }}>
                           <Card className="overflow-hidden rounded-3xl border hover:border-primary/50 transition-all duration-300">
-                            <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-emerald-100 to-teal-200 dark:from-emerald-950 dark:to-teal-900 p-4 flex items-end">
-                              <Badge className="rounded-xl bg-emerald-500 text-white">{post.category}</Badge>
+                            <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 p-4 flex items-end">
+                              <Badge className="rounded-xl bg-blue-500 text-white">{post.category}</Badge>
                             </div>
                             <CardContent className="p-4">
                               <h3 className="font-semibold">{post.title}</h3>
@@ -735,7 +735,7 @@ export function DesignaliCreative() {
                 <TabsContent value="patika" className="space-y-6 mt-0">
                   <div className="mx-auto max-w-md">
                     {/* Path header */}
-                    <div className="mb-8 rounded-2xl bg-emerald-500 p-4 text-white">
+                    <div className="mb-8 rounded-2xl bg-blue-500 p-4 text-white">
                       <button className="mb-1 text-sm text-white/80 hover:text-white flex items-center gap-1" onClick={() => setActiveTab("home")}>
                         ← BÖLÜM 1, KISIM 1
                       </button>
@@ -762,7 +762,7 @@ export function DesignaliCreative() {
                           className="relative"
                         >
                           {node.status === "completed" && (
-                            <button className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg shadow-emerald-200 dark:shadow-emerald-900/30 transition-transform hover:scale-110">
+                            <button className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-500 text-white shadow-lg shadow-blue-200 dark:shadow-blue-900/30 transition-transform hover:scale-110">
                               <Star className="h-7 w-7 fill-white" />
                             </button>
                           )}
@@ -771,7 +771,7 @@ export function DesignaliCreative() {
                               <motion.button
                                 animate={{ scale: [1, 1.05, 1] }}
                                 transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                                className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-500 text-white shadow-xl shadow-emerald-300 dark:shadow-emerald-900/40 ring-4 ring-emerald-200 dark:ring-emerald-800"
+                                className="flex h-20 w-20 items-center justify-center rounded-full bg-blue-500 text-white shadow-xl shadow-blue-300 dark:shadow-blue-900/40 ring-4 ring-blue-200 dark:ring-blue-800"
                               >
                                 <span className="text-sm font-bold">{node.label}</span>
                               </motion.button>
@@ -852,11 +852,11 @@ export function DesignaliCreative() {
                       {[
                         { name: "İlk Adım", desc: "İlk dersini tamamla", icon: <Star className="h-6 w-6 text-amber-500" />, status: "completed" },
                         { name: "Kelime Avcısı", desc: "50 kelime öğren", icon: <BookOpen className="h-6 w-6 text-blue-500" />, status: "completed" },
-                        { name: "Haftanın Yıldızı", desc: "7 gün üst üste çalış", icon: <TrendingUp className="h-6 w-6 text-emerald-500" />, status: "claim" },
+                        { name: "Haftanın Yıldızı", desc: "7 gün üst üste çalış", icon: <TrendingUp className="h-6 w-6 text-blue-500" />, status: "claim" },
                         { name: "Mükemmeliyetçi", desc: "Bir dersten %100 al", icon: <Award className="h-6 w-6 text-violet-500" />, status: "claim" },
                         { name: "Sosyal Kelebek", desc: "5 arkadaş ekle", icon: <Users className="h-6 w-6 text-pink-500" />, status: "locked" },
                         { name: "Maraton Koşucusu", desc: "30 gün üst üste çalış", icon: <Trophy className="h-6 w-6 text-orange-500" />, status: "locked" },
-                        { name: "Sözlük Ustası", desc: "500 kelime öğren", icon: <Sparkles className="h-6 w-6 text-cyan-500" />, status: "locked" },
+                        { name: "Sözlük Ustası", desc: "500 kelime öğren", icon: <Sparkles className="h-6 w-6 text-sky-500" />, status: "locked" },
                         { name: "Dil Dahisi", desc: "Tüm A1 patikasını bitir", icon: <Globe className="h-6 w-6 text-indigo-500" />, status: "locked" },
                       ].map((achievement) => (
                         <motion.div
@@ -870,8 +870,8 @@ export function DesignaliCreative() {
                           <div className={cn(
                             "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl",
                             achievement.status === "completed" ? "bg-amber-100 dark:bg-amber-900/30" :
-                            achievement.status === "claim" ? "bg-emerald-100 dark:bg-emerald-900/30" :
-                            "bg-muted"
+                              achievement.status === "claim" ? "bg-blue-100 dark:bg-blue-900/30" :
+                                "bg-muted"
                           )}>
                             {achievement.icon}
                           </div>
@@ -885,7 +885,7 @@ export function DesignaliCreative() {
                             </Badge>
                           )}
                           {achievement.status === "claim" && (
-                            <Button size="sm" className="shrink-0 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white">
+                            <Button size="sm" className="shrink-0 rounded-xl bg-blue-500 hover:bg-blue-600 text-white">
                               Ödül Al
                             </Button>
                           )}
@@ -906,7 +906,7 @@ export function DesignaliCreative() {
                     {/* Profile header card */}
                     <div className="rounded-3xl border bg-card p-6">
                       <div className="flex flex-col items-center gap-4 sm:flex-row">
-                        <Avatar className="h-20 w-20 ring-4 ring-emerald-200 dark:ring-emerald-800">
+                        <Avatar className="h-20 w-20 ring-4 ring-blue-200 dark:ring-blue-800">
                           <AvatarImage src="/placeholder.svg?height=80&width=80" alt="User" />
                           <AvatarFallback className="text-2xl">JD</AvatarFallback>
                         </Avatar>
@@ -914,7 +914,7 @@ export function DesignaliCreative() {
                           <h2 className="text-2xl font-bold">John Doe</h2>
                           <p className="text-muted-foreground">İngilizce öğreniyor • 30 gündür üye</p>
                           <div className="mt-2 flex flex-wrap justify-center sm:justify-start gap-2">
-                            <Badge className="rounded-xl bg-emerald-500 text-white">A2 Seviye</Badge>
+                            <Badge className="rounded-xl bg-blue-500 text-white">A2 Seviye</Badge>
                             <Badge variant="outline" className="rounded-xl">12 Rozet</Badge>
                             <Badge variant="outline" className="rounded-xl">2.4K XP</Badge>
                           </div>
@@ -929,7 +929,7 @@ export function DesignaliCreative() {
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                       {[
                         { label: "Toplam Ders", value: "48", icon: <BookOpen className="h-5 w-5 text-blue-500" /> },
-                        { label: "Kelime", value: "312", icon: <PenTool className="h-5 w-5 text-emerald-500" /> },
+                        { label: "Kelime", value: "312", icon: <PenTool className="h-5 w-5 text-blue-500" /> },
                         { label: "Çalışma Saati", value: "24h", icon: <Clock className="h-5 w-5 text-violet-500" /> },
                         { label: "En Uzun Seri", value: "14 gün", icon: <TrendingUp className="h-5 w-5 text-amber-500" /> },
                       ].map((stat) => (
@@ -948,7 +948,7 @@ export function DesignaliCreative() {
                       <h3 className="text-lg font-semibold">Son Aktiviteler</h3>
                       <div className="rounded-2xl border overflow-hidden">
                         {[
-                          { action: "A1 Patikası - Ders 5 tamamlandı", time: "2 saat önce", icon: <Map className="h-4 w-4 text-emerald-500" /> },
+                          { action: "A1 Patikası - Ders 5 tamamlandı", time: "2 saat önce", icon: <Map className="h-4 w-4 text-blue-500" /> },
                           { action: "15 yeni kelime öğrenildi", time: "Dün", icon: <BookOpen className="h-4 w-4 text-blue-500" /> },
                           { action: "7 Gün Seri rozeti kazanıldı", time: "3 gün önce", icon: <Trophy className="h-4 w-4 text-amber-500" /> },
                           { action: "Günlük Konuşma dersine başlandı", time: "1 hafta önce", icon: <PenTool className="h-4 w-4 text-violet-500" /> },
@@ -1001,31 +1001,31 @@ export function DesignaliCreative() {
                       ]
                         .slice((blogPage - 1) * 12, blogPage * 12)
                         .map((post) => (
-                        <motion.div key={post.title} whileHover={{ scale: 1.005 }} className="group">
-                          <div className="flex gap-4 rounded-2xl border p-4 transition-colors hover:border-primary/40">
-                            <div className="hidden sm:flex h-20 w-28 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-100 to-teal-200 dark:from-emerald-950 dark:to-teal-900">
-                              <Badge className="rounded-lg bg-emerald-500 text-white text-xs">{post.category}</Badge>
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-start justify-between gap-2">
-                                <h3 className="font-semibold group-hover:text-primary transition-colors">{post.title}</h3>
-                                <Badge variant="outline" className="shrink-0 rounded-lg text-xs sm:hidden">{post.category}</Badge>
+                          <motion.div key={post.title} whileHover={{ scale: 1.005 }} className="group">
+                            <div className="flex gap-4 rounded-2xl border p-4 transition-colors hover:border-primary/40">
+                              <div className="hidden sm:flex h-20 w-28 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900">
+                                <Badge className="rounded-lg bg-blue-500 text-white text-xs">{post.category}</Badge>
                               </div>
-                              <p className="mt-1 text-sm text-muted-foreground line-clamp-1">{post.excerpt}</p>
-                              <div className="mt-2 flex items-center gap-3 text-xs text-muted-foreground">
-                                <span>{post.author}</span>
-                                <span>•</span>
-                                <span>{post.date}</span>
-                                <span>•</span>
-                                <div className="flex items-center gap-1">
-                                  <Clock className="h-3 w-3" />
-                                  {post.readTime}
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-start justify-between gap-2">
+                                  <h3 className="font-semibold group-hover:text-primary transition-colors">{post.title}</h3>
+                                  <Badge variant="outline" className="shrink-0 rounded-lg text-xs sm:hidden">{post.category}</Badge>
+                                </div>
+                                <p className="mt-1 text-sm text-muted-foreground line-clamp-1">{post.excerpt}</p>
+                                <div className="mt-2 flex items-center gap-3 text-xs text-muted-foreground">
+                                  <span>{post.author}</span>
+                                  <span>•</span>
+                                  <span>{post.date}</span>
+                                  <span>•</span>
+                                  <div className="flex items-center gap-1">
+                                    <Clock className="h-3 w-3" />
+                                    {post.readTime}
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </motion.div>
-                      ))}
+                          </motion.div>
+                        ))}
                     </div>
 
                     {/* Pagination */}

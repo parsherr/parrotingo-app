@@ -19,7 +19,7 @@ export function PathNode({ status, label, index }: PathNodeProps) {
             className="relative"
         >
             {status === "completed" && (
-                <button className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg shadow-emerald-200 dark:shadow-emerald-900/30 transition-transform hover:scale-110">
+                <button className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-500 text-white shadow-lg shadow-blue-200 dark:shadow-blue-900/30 transition-transform hover:scale-110">
                     <Star className="h-7 w-7 fill-white" />
                 </button>
             )}
@@ -28,7 +28,7 @@ export function PathNode({ status, label, index }: PathNodeProps) {
                     <motion.button
                         animate={{ scale: [1, 1.05, 1] }}
                         transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                        className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-500 text-white shadow-xl shadow-emerald-300 dark:shadow-emerald-900/40 ring-4 ring-emerald-200 dark:ring-emerald-800"
+                        className="flex h-20 w-20 items-center justify-center rounded-full bg-blue-500 text-white shadow-xl shadow-blue-300 dark:shadow-blue-900/40 ring-4 ring-blue-200 dark:ring-blue-800"
                     >
                         <span className="text-sm font-bold">{label}</span>
                     </motion.button>

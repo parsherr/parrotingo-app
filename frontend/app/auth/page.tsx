@@ -1,8 +1,10 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
+import { useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react"
+import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader2 } from "lucide-react"
+import { useAuth } from "@/lib/auth-context"
 
 /* ───────────── Slider Data ───────────── */
 const slides = [
@@ -71,8 +73,8 @@ function InfiniteSlider() {
                         key={i}
                         onClick={() => setCurrent(i)}
                         className={`h-2.5 rounded-full transition-all duration-300 ${i === current
-                                ? "w-8 bg-white"
-                                : "w-2.5 bg-white/30 hover:bg-white/50"
+                            ? "w-8 bg-white"
+                            : "w-2.5 bg-white/30 hover:bg-white/50"
                             }`}
                     />
                 ))}
@@ -88,11 +90,64 @@ export default function AuthPage() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [name, setName] = useState("")
+    const [error, setError] = useState("")
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
+    const { login, signup, loginWithGoogle, isAuthenticated, isLoading } = useAuth()
+    const router = useRouter()
+
+    // Redirect if already authenticated
+    useEffect(() => {
+        if (!isLoading && isAuthenticated) {
+            router.push("/")
+        }
+    }, [isAuthenticated, isLoading, router])
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setError("")
+        setIsSubmitting(true)
+
+        try {
+            let result: { success: boolean; error?: string }
+
+            if (mode === "login") {
+                result = await login(email, password)
+            } else {
+                result = await signup(email, password, name || undefined)
+            }
+
+            if (result.success) {
+                router.push("/")
+            } else {
+                setError(result.error || "An error occurred")
+            }
+        } catch {
+            setError("An unexpected error occurred")
+        } finally {
+            setIsSubmitting(false)
+        }
+    }
+
+    const handleGoogleLogin = async () => {
+        // For now, Google login is prepared but needs Google Client ID configured
+        // This will work with Google Identity Services or a popup flow
+        setError("Google login requires GOOGLE_CLIENT_ID configuration. Please use email/password.")
+    }
+
+    // Show loading screen while checking auth
+    if (isLoading) {
+        return (
+            <div className="flex min-h-screen items-center justify-center">
+                <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+            </div>
+        )
+    }
 
     return (
         <div className="flex min-h-screen">
             {/* Left — Slider Panel */}
-            <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-700 relative overflow-hidden">
+            <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-600 via-blue-500 to-sky-500 relative overflow-hidden">
                 {/* Decorative circles */}
                 <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-white/5" />
                 <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-white/5" />
@@ -114,7 +169,7 @@ export default function AuthPage() {
                 <div className="w-full max-w-sm space-y-8">
                     {/* Mobile logo */}
                     <div className="lg:hidden flex items-center gap-2 justify-center mb-4">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500 text-white font-bold">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500 text-white font-bold">
                             P
                         </div>
                         <span className="text-xl font-bold">Parrotingo</span>
@@ -132,8 +187,26 @@ export default function AuthPage() {
                         </p>
                     </div>
 
+                    {/* Error Message */}
+                    <AnimatePresence>
+                        {error && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                className="rounded-xl bg-red-500/10 border border-red-500/20 px-4 py-3 text-sm text-red-500"
+                            >
+                                {error}
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
                     {/* Google Button */}
-                    <button className="w-full flex items-center justify-center gap-3 h-12 rounded-xl border bg-background hover:bg-muted transition-colors text-sm font-medium">
+                    <button
+                        onClick={handleGoogleLogin}
+                        disabled={isSubmitting}
+                        className="w-full flex items-center justify-center gap-3 h-12 rounded-xl border bg-background hover:bg-muted transition-colors text-sm font-medium disabled:opacity-50"
+                    >
                         <svg className="h-5 w-5" viewBox="0 0 24 24">
                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
                             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
@@ -154,7 +227,7 @@ export default function AuthPage() {
                     </div>
 
                     {/* Form */}
-                    <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                    <form className="space-y-4" onSubmit={handleSubmit}>
                         {/* Name field — only for signup */}
                         <AnimatePresence>
                             {mode === "signup" && (
@@ -171,7 +244,7 @@ export default function AuthPage() {
                                             value={name}
                                             onChange={(e) => setName(e.target.value)}
                                             placeholder="John Doe"
-                                            className="w-full h-12 rounded-xl border bg-background px-4 text-sm outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all"
+                                            className="w-full h-12 rounded-xl border bg-background px-4 text-sm outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all"
                                         />
                                     </div>
                                 </motion.div>
@@ -188,7 +261,8 @@ export default function AuthPage() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="mail@example.com"
-                                    className="w-full h-12 rounded-xl border bg-background pl-11 pr-4 text-sm outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all"
+                                    required
+                                    className="w-full h-12 rounded-xl border bg-background pl-11 pr-4 text-sm outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all"
                                 />
                             </div>
                         </div>
@@ -198,7 +272,7 @@ export default function AuthPage() {
                             <div className="flex items-center justify-between mb-1.5">
                                 <label className="block text-sm font-medium">Password</label>
                                 {mode === "login" && (
-                                    <button type="button" className="text-xs text-emerald-500 hover:text-emerald-600 font-medium">
+                                    <button type="button" className="text-xs text-blue-500 hover:text-blue-600 font-medium">
                                         Forgot password?
                                     </button>
                                 )}
@@ -210,7 +284,9 @@ export default function AuthPage() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••"
-                                    className="w-full h-12 rounded-xl border bg-background pl-11 pr-12 text-sm outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all"
+                                    required
+                                    minLength={6}
+                                    className="w-full h-12 rounded-xl border bg-background pl-11 pr-12 text-sm outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all"
                                 />
                                 <button
                                     type="button"
@@ -225,10 +301,17 @@ export default function AuthPage() {
                         {/* Submit */}
                         <button
                             type="submit"
-                            className="w-full h-12 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-sm flex items-center justify-center gap-2 transition-colors"
+                            disabled={isSubmitting}
+                            className="w-full h-12 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-medium text-sm flex items-center justify-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            {mode === "login" ? "Sign in" : "Create account"}
-                            <ArrowRight className="h-4 w-4" />
+                            {isSubmitting ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                                <>
+                                    {mode === "login" ? "Sign in" : "Create account"}
+                                    <ArrowRight className="h-4 w-4" />
+                                </>
+                            )}
                         </button>
                     </form>
 
@@ -238,8 +321,8 @@ export default function AuthPage() {
                             <>
                                 New to Parrotingo?{" "}
                                 <button
-                                    onClick={() => setMode("signup")}
-                                    className="text-emerald-500 hover:text-emerald-600 font-semibold"
+                                    onClick={() => { setMode("signup"); setError("") }}
+                                    className="text-blue-500 hover:text-blue-600 font-semibold"
                                 >
                                     Create Account
                                 </button>
@@ -248,8 +331,8 @@ export default function AuthPage() {
                             <>
                                 Already have an account?{" "}
                                 <button
-                                    onClick={() => setMode("login")}
-                                    className="text-emerald-500 hover:text-emerald-600 font-semibold"
+                                    onClick={() => { setMode("login"); setError("") }}
+                                    className="text-blue-500 hover:text-blue-600 font-semibold"
                                 >
                                     Sign in
                                 </button>

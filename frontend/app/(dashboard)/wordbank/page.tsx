@@ -30,7 +30,7 @@ export default function WordbankPage() {
     )
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 max-w-4xl mx-auto">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <h2 className="text-2xl font-bold">Kelimelerim</h2>
                 <div className="relative w-full sm:w-72">
@@ -72,7 +72,7 @@ export default function WordbankPage() {
                                 <div className="w-8 flex justify-center pt-1 text-sm font-medium text-muted-foreground">
                                     {rowNumber}
                                 </div>
-                                <div className="font-bold text-lg text-primary tracking-tight">
+                                <div className="font-bold text-lg text-foreground tracking-tight">
                                     {word.word}
                                 </div>
                                 <div className="text-sm text-foreground/90 leading-relaxed font-medium">

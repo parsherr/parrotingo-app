@@ -38,7 +38,7 @@ export default function BlogPage() {
     const paginatedPosts = filteredPosts.slice((blogPage - 1) * POSTS_PER_PAGE, blogPage * POSTS_PER_PAGE)
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 max-w-4xl mx-auto">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <h2 className="text-2xl font-bold">Blog</h2>
                 <div className="relative w-full sm:w-72">
