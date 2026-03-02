@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Check, Lock } from "lucide-react"
+import { ConfettiButton } from "@/components/ui/confetti"
 import { cn } from "@/lib/utils"
 
 interface AchievementRowProps {
@@ -9,9 +10,10 @@ interface AchievementRowProps {
     description: string
     icon: React.ReactNode
     status: "completed" | "claim" | "locked"
+    onClaim?: () => void
 }
 
-export function AchievementRow({ name, description, icon, status }: AchievementRowProps) {
+export function AchievementRow({ name, description, icon, status, onClaim }: AchievementRowProps) {
     return (
         <motion.div
             whileHover={{ scale: status !== "locked" ? 1.01 : 1 }}
@@ -41,15 +43,29 @@ export function AchievementRow({ name, description, icon, status }: AchievementR
             {/* Status — unified width */}
             <div className="w-[110px] flex justify-end shrink-0">
                 {status === "completed" && (
-                    <div className="flex items-center gap-1.5 rounded-full bg-amber-500/15 dark:bg-amber-500/20 px-3.5 py-1.5">
+                    <motion.div
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="flex items-center gap-1.5 rounded-full bg-amber-500/15 dark:bg-amber-500/20 px-3.5 py-1.5"
+                    >
                         <Check className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
                         <span className="text-xs font-semibold text-amber-700 dark:text-amber-400">Kazanıldı</span>
-                    </div>
+                    </motion.div>
                 )}
                 {status === "claim" && (
-                    <button className="flex items-center justify-center rounded-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 text-xs font-semibold transition-colors shadow-sm shadow-blue-500/25">
+                    <ConfettiButton
+                        options={{
+                            get angle() {
+                                return Math.random() * 360
+                            },
+                            spread: 60,
+                            particleCount: 80,
+                        }}
+                        onClick={onClaim}
+                        className="h-auto rounded-full bg-blue-500 hover:bg-blue-600 active:scale-95 text-white px-4 py-1.5 text-xs font-semibold transition-all shadow-sm shadow-blue-500/25"
+                    >
                         Ödül Al
-                    </button>
+                    </ConfettiButton>
                 )}
                 {status === "locked" && (
                     <div className="flex items-center gap-1.5 rounded-full bg-muted px-3.5 py-1.5">

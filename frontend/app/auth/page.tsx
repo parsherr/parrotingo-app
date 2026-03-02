@@ -39,7 +39,7 @@ function InfiniteSlider() {
     }, [next])
 
     return (
-        <div className="flex flex-col items-center justify-center h-full px-12">
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-16">
             <AnimatePresence mode="wait">
                 <motion.div
                     key={current}
@@ -49,25 +49,25 @@ function InfiniteSlider() {
                     transition={{ duration: 0.4 }}
                     className="flex flex-col items-center text-center"
                 >
-                    <div className="relative mb-8">
-                        <div className="absolute -inset-6 rounded-3xl bg-white/10 backdrop-blur-sm" />
+                    <div className="relative mb-10">
+                        <div className="absolute -inset-8 rounded-3xl bg-white/10 backdrop-blur-sm" />
                         <img
                             src={slides[current].image}
                             alt="Parrotingo"
-                            className="relative h-52 w-52 object-contain drop-shadow-lg"
+                            className="relative h-64 w-64 object-contain drop-shadow-lg"
                         />
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-3">
+                    <h3 className="text-3xl font-bold text-white mb-3">
                         {slides[current].title}
                     </h3>
-                    <p className="text-white/70 text-base max-w-xs leading-relaxed">
+                    <p className="text-white/70 text-lg max-w-sm leading-relaxed">
                         {slides[current].description}
                     </p>
                 </motion.div>
             </AnimatePresence>
 
             {/* Dots */}
-            <div className="flex gap-2 mt-10">
+            <div className="flex gap-2 mt-12">
                 {slides.map((_, i) => (
                     <button
                         key={i}
