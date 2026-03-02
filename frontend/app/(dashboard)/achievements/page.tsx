@@ -63,14 +63,6 @@ function fireLevelUpCelebration() {
         requestAnimationFrame(frame)
     }
 
-    // Initial big burst
-    confetti({
-        particleCount: 100,
-        spread: 100,
-        origin: { x: 0.5, y: 0.4 },
-        colors,
-    })
-
     frame()
 }
 

@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"
 import { Check, Lock } from "lucide-react"
-import { ConfettiButton } from "@/components/ui/confetti"
 import { cn } from "@/lib/utils"
 
 interface AchievementRowProps {
@@ -53,19 +52,12 @@ export function AchievementRow({ name, description, icon, status, onClaim }: Ach
                     </motion.div>
                 )}
                 {status === "claim" && (
-                    <ConfettiButton
-                        options={{
-                            get angle() {
-                                return Math.random() * 360
-                            },
-                            spread: 60,
-                            particleCount: 80,
-                        }}
+                    <button
                         onClick={onClaim}
-                        className="h-auto rounded-full bg-blue-500 hover:bg-blue-600 active:scale-95 text-white px-4 py-1.5 text-xs font-semibold transition-all shadow-sm shadow-blue-500/25"
+                        className="flex items-center justify-center rounded-full bg-blue-500 hover:bg-blue-600 active:scale-95 text-white px-4 py-1.5 text-xs font-semibold transition-all shadow-sm shadow-blue-500/25"
                     >
                         Ödül Al
-                    </ConfettiButton>
+                    </button>
                 )}
                 {status === "locked" && (
                     <div className="flex items-center gap-1.5 rounded-full bg-muted px-3.5 py-1.5">
